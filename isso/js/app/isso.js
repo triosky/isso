@@ -91,7 +91,10 @@ define(["app/dom", "app/utils", "app/config", "app/api", "app/jade", "app/i18n",
                     }
 
                     if (window.location.hash.length > 0) {
-                        $(window.location.hash).scrollIntoView();
+                        var hash = $(window.location.hash);
+                        if(hash != null){
+                            hash.scrollIntoView();
+                        }
                     }
                 },
                 function(err) {
@@ -154,7 +157,7 @@ define(["app/dom", "app/utils", "app/config", "app/api", "app/jade", "app/i18n",
             if (span === null && value !== 0) {
                 footer.prepend($.new("span.votes", value));
             } else {
-                if (value === 0) {
+                if (value === 0 && span !== null) {
                     span.remove();
                 } else {
                     span.textContent = value;

@@ -8,5 +8,8 @@
     out: "embed.min.js",
 
     optimizeAllPluginResources: true,
-    wrap: true
+    wrap: {
+        startFile: 'start.frag',
+        endFile: 'end.frag'
+    }
 })

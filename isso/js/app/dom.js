@@ -114,18 +114,23 @@ define(function() {
         if (! root) {
             root = window.document;
         }
+        var result = null;
+        try{
+            var elements = root.querySelectorAll(query);
 
-        var elements = root.querySelectorAll(query);
+            if (elements.length === 0) {
+                result = null;
+            }else if (elements.length === 1 && single) {
+                result = elements[0];
+            }else{
+                result = elements;
+            }
 
-        if (elements.length === 0) {
-            return null;
+        }catch(ex){
+
         }
 
-        if (elements.length === 1 && single) {
-            return elements[0];
-        }
-
-        return elements;
+        return result;
     };
 
     DOM.htmlify = function(html) {

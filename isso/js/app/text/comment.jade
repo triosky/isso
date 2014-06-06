@@ -4,13 +4,6 @@ div(class='isso-comment' id='isso-#{comment.id}')
             svg(data-hash='#{comment.hash}')
     div(class='text-wrapper')
         div(class='isso-comment-header' role='meta')
-            if bool(comment.website)
-                a(class='author' href='#{comment.website}' rel='nofollow')
-                    = bool(comment.author) ? comment.author : i18n('comment-anonymous')
-            else
-                span(class='author')
-                    = bool(comment.author) ? comment.author : i18n('comment-anonymous')
-            span(class="spacer") •
             a(class='permalink' href='#isso-#{comment.id}')
                 date(datetime='#{datetime(comment.created)}')
             span(class='note')

@@ -3,7 +3,7 @@
  * Distributed under the MIT license
  */
 
-require(["app/lib/ready", "app/config", "app/i18n", "app/api", "app/isso", "app/count", "app/dom", "app/text/css", "app/text/svg", "app/jade"], function(domready, config, i18n, api, isso, count, $, css, svg, jade) {
+define(["app/lib/ready", "app/config", "app/i18n", "app/api", "app/isso", "app/count", "app/dom", "app/text/css", "app/text/svg", "app/jade"], function(domready, config, i18n, api, isso, count, $, css, svg, jade) {
 
     "use strict";
 
@@ -11,8 +11,7 @@ require(["app/lib/ready", "app/config", "app/i18n", "app/api", "app/isso", "app/
     jade.set("i18n", i18n.translate);
     jade.set("pluralize", i18n.pluralize);
     jade.set("svg", svg);
-
-    domready(function() {
+    var init = function() {
 
         if (config["css"]) {
             var style = $.new("style");
@@ -54,14 +53,18 @@ require(["app/lib/ready", "app/config", "app/i18n", "app/api", "app/isso", "app/
                 if(rv.hidden_replies > 0) {
                     isso.insert_loader(rv, lastcreated);
                 }
-
-                if (window.location.hash.length > 0) {
-                    $(window.location.hash).scrollIntoView();
+                var hash = $(window.location.hash);
+                if(hash != null){
+                    hash.scrollIntoView();
                 }
             },
             function(err) {
                 console.log(err);
             }
         );
-    });
+    };
+    // domready(init);
+    return {
+        init:init
+    };
 });

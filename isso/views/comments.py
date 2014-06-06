@@ -180,17 +180,16 @@ class API(object):
             data["website"] = normalize(data["website"])
 
         data['mode'] = 2 if self.moderated else 1
-        data['remote_addr'] = utils.anonymize(str(request.remote_addr))
+        data['remote_addr'] = str(request.remote_addr)
 
         with self.isso.lock:
             if uri not in self.threads:
-                with http.curl('GET', local("origin"), uri) as resp:
-                    if resp and resp.status == 200:
-                        uri, title = parse.thread(resp.read(), id=uri)
-                    else:
-                        return NotFound('URI does not exist')
-
-                thread = self.threads.new(uri, title)
+                # with http.curl('GET', local("origin"), uri) as resp:
+                #     if resp and resp.status == 200:
+                #         uri, title = parse.thread(resp.read(), id=uri)
+                #     else:
+                #         return NotFound('URI does not exist')
+                thread = self.threads.new(uri, uri)
                 self.signal("comments.new:new-thread", thread)
             else:
                 thread = self.threads[uri]
@@ -463,13 +462,13 @@ class API(object):
     @xhr
     def like(self, environ, request, id):
 
-        nv = self.comments.vote(True, id, utils.anonymize(str(request.remote_addr)))
+        nv = self.comments.vote(True, id, str(request.remote_addr))
         return JSON(nv, 200)
 
     @xhr
     def dislike(self, environ, request, id):
 
-        nv = self.comments.vote(False, id, utils.anonymize(str(request.remote_addr)))
+        nv = self.comments.vote(False, id, str(request.remote_addr))
         return JSON(nv, 200)
 
     # TODO: remove someday (replaced by :func:`counts`)
