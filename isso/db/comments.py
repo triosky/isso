@@ -114,9 +114,11 @@ class Comments:
                 sql.append('AND comments.parent=?')
                 sql_args.append(parent)
 
-        sql.append('ORDER BY ? ASC')
-        sql_args.append(order_by)
-
+        sql.append('ORDER BY ? DESC, ? DESC')
+        sql_args.append('comments.likes')
+        sql_args.append('comments.created')
+        # sql_args.append(order_by)
+         
         if limit:
             sql.append('LIMIT ?')
             sql_args.append(limit)

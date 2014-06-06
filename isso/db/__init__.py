@@ -55,7 +55,6 @@ class SQLite3:
 
         if isinstance(sql, (list, tuple)):
             sql = ' '.join(sql)
-
         with sqlite3.connect(self.path) as con:
             return con.execute(sql, args)
 
