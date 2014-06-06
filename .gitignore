@@ -17,10 +17,6 @@
 /share
 /isso.egg-info/
 /isso/js/components
-/isso/js/embed.min.js
-/isso/js/embed.dev.js
-/isso/js/count.min.js
-/isso/js/count.dev.js
 /node_modules
 /docs/_build
 /docs/_static/css/site.css
